@@ -1,7 +1,9 @@
 package com.openshutters.justcalmdown;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,10 +16,25 @@ import pl.droidsonroids.gif.GifImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    long[] vibrationPattern = { 1000,
+            0, 500,           // pattern for inhaling 4000
+            3500, 100,           // pattern for inhaling 4000
+
+            0, 1000,           // small pause
+
+            100, 1400,           // pattern for exhaling 6000
+            100, 1400,
+            100, 1400,
+            100, 1400
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -27,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         final MediaController mediaController = new MediaController(this);
         mediaController.setMediaPlayer(gifDrawable);
         mediaController.setAnchorView(gif);
+
+        if(vibrator.hasVibrator()){
+            vibrator.vibrate(vibrationPattern, -1);
+        }
 
         gif.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        } else if(id == R.id.action_settings){
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
