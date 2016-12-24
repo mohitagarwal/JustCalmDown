@@ -5,7 +5,7 @@
         android:entries="@array/pref_time_array"
         android:entryValues="@array/pref_time_array"
         android:key="pref_time"
-        android:summary="Time for breating"
+        android:summary="Time for breathing"
         android:title="Time" />
 
     <SwitchPreference
