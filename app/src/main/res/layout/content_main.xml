@@ -13,11 +13,12 @@
     tools:context="com.openshutters.justcalmdown.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <pl.droidsonroids.gif.GifImageButton
+    <!--<pl.droidsonroids.gif.GifImageButton-->
+    <ImageView
         android:id="@+id/main_gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
-        android:src="@drawable/justcalmdown"
+        android:src="@drawable/image0"
         />
 </RelativeLayout>
