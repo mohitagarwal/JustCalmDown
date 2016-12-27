@@ -8,4 +8,12 @@
         <item>10 minutes</item>
         <item>15 minutes</item>
     </string-array>
+    <string-array name="pref_time_values">
+        <item>60</item>
+        <item>180</item>
+        <item>300</item>
+        <item>420</item>
+        <item>600</item>
+        <item>900</item>
+    </string-array>
 </resources>

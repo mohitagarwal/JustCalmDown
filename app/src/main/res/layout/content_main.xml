@@ -13,12 +13,22 @@
     tools:context="com.openshutters.justcalmdown.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <Chronometer
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="56dp"
+        android:padding="8dp"
+        android:textSize="48dp"
+        android:textStyle="bold" />
+
     <!--<pl.droidsonroids.gif.GifImageButton-->
     <ImageView
         android:id="@+id/main_gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/timer"
         android:scaleType="fitCenter"
-        android:src="@drawable/image0"
-        />
+        android:src="@drawable/image0" />
 </RelativeLayout>

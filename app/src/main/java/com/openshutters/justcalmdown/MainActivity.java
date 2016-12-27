@@ -2,38 +2,36 @@ package com.openshutters.justcalmdown;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int DELAY = 500;
+    private int DELAY = 0;
     private int GAP_BETWEEN_EACH_IMAGE = 1000;
     private int IMAGE_COUNT = 10;
 
-    List<Long> vibrationPattern = Arrays.asList(
-            500L, 500L,          // pattern for inhaling 4000
+    long[] vibrationPattern = {
+            900L, 100L,          // pattern for inhaling 4000
             0L, 1000L,
             0L, 1000L,
             0L, 1000L,
@@ -44,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             900L, 100L,
             900L, 100L,
             900L, 100L,
-            900L, 100L);
+            900L, 100L,
+            1000L, 0L};
 
     int[] images = {
             R.drawable.image0,
@@ -71,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
     Vibrator vibrator;
 
+    private Chronometer chronometer;
+    private long elapsedTimeBeforePause;
+
+    private int prefTimeLimitInSeconds;
+    private boolean prefVibrateOnly;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +83,21 @@ public class MainActivity extends AppCompatActivity {
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        initializeSettings();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        chronometer = (Chronometer) findViewById(R.id.timer);
+
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long countUp = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
+                if (countUp >= prefTimeLimitInSeconds) {
+                    stopAnimation();
+                }
+            }
+        });
 
         //setupUsingGIF(vibrator);
         setupUsingAnimation(vibrator);
@@ -88,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        stopAnimation();
+        resetAnimation();
     }
 
     @Override
@@ -115,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeSettings() {
+        SharedPreferences prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        prefTimeLimitInSeconds = Integer.valueOf(prfs.getString("pref_time", "60"));
+        prefVibrateOnly = prfs.getBoolean("pref_vibrate", false);
     }
 
     private void setupUsingGIF(Vibrator vibrator) {
@@ -152,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isPlaying) {
-                    stopAnimation();
+                    resetAnimation();
                 } else {
                     startAnimation(_index);
                 }
@@ -160,12 +184,32 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void stopAnimation() {
+    private void resetAnimation() {
         if (_timer != null) {
             _timer.cancel();
+            _index = 0;
         }
         if (vibrator != null) {
             vibrator.cancel();
+        }
+        if (chronometer != null && isPlaying) {
+            chronometer.stop();
+            elapsedTimeBeforePause = SystemClock.elapsedRealtime() - chronometer.getBase();
+        }
+        isPlaying = false;
+    }
+
+    private void stopAnimation() {
+        if (_timer != null) {
+            _timer.cancel();
+            _index = 0;
+        }
+        if (vibrator != null) {
+            vibrator.cancel();
+        }
+        if (chronometer != null) {
+            chronometer.stop();
+            elapsedTimeBeforePause = SystemClock.elapsedRealtime();
         }
         isPlaying = false;
     }
@@ -173,35 +217,32 @@ public class MainActivity extends AppCompatActivity {
     private void startAnimation(int index) {
         isPlaying = true;
 
+        _timer = new Timer();
+        _timer.schedule(new TickClass(), DELAY, GAP_BETWEEN_EACH_IMAGE);
+
         if (vibrator.hasVibrator()) {
-            long[] pattern = modifyVibrationPatternBasedOnIndex(_index);
-            vibrator.vibrate(pattern, 0);
+            vibrator.vibrate(vibrationPattern, 0);
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                _timer = new Timer();
-                _timer.schedule(new TickClass(), DELAY, GAP_BETWEEN_EACH_IMAGE);
-            }
-        }, DELAY);
+        chronometer.setBase(SystemClock.elapsedRealtime() - elapsedTimeBeforePause);
+        chronometer.start();
     }
 
-    private long[] modifyVibrationPatternBasedOnIndex(int index) {
-        List<Long> copiedList = new ArrayList<>(vibrationPattern);
-        Collections.rotate(copiedList, 2 * index);
-        Long[] newPattern = new Long[vibrationPattern.size()];
-        copiedList.toArray(newPattern);
-        return ArrayUtils.toPrimitive(newPattern);
-    }
+//    private long[] modifyVibrationPatternBasedOnIndex(int index) {
+//        List<Long> copiedList = new ArrayList<>(vibrationPattern);
+//        Collections.rotate(copiedList, 2 * index);
+//        Long[] newPattern = new Long[vibrationPattern.size()];
+//        copiedList.toArray(newPattern);
+//        return ArrayUtils.toPrimitive(newPattern);
+//    }
 
     private class TickClass extends TimerTask {
         @Override
         public void run() {
-            if (_index >= 10) {
-                _index = 0;
-            }
             handler.sendEmptyMessage(_index);
+            if (_index >= 10) {
+                _index = -1;
+            }
             _index++;
             timeElapsed++;
         }
@@ -213,10 +254,10 @@ public class MainActivity extends AppCompatActivity {
             super.handleMessage(msg);
 
             try {
-                Bitmap bmp = BitmapFactory.decodeStream(MainActivity.this.getAssets().open("image" + _index + ".png"));
+                Bitmap bmp = BitmapFactory.decodeStream(MainActivity.this.getAssets().open("image" + msg.what + ".png"));
                 gif.setImageBitmap(bmp);
 
-                Log.v("Loading Image: ", _index + "");
+                Log.v("Loading Image: ", msg.what + "");
             } catch (IOException e) {
                 Log.v("Exception in Handler ", e.getMessage());
             }
