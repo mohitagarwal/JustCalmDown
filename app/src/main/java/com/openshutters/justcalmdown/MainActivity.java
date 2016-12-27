@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int DELAY = 0;
     private int GAP_BETWEEN_EACH_IMAGE = 1000;
-    private int IMAGE_COUNT = 10;
 
     long[] vibrationPattern = {
             900L, 100L,          // pattern for inhaling 4000
@@ -45,31 +44,14 @@ public class MainActivity extends AppCompatActivity {
             900L, 100L,
             1000L, 0L};
 
-    int[] images = {
-            R.drawable.image0,
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-            R.drawable.image4,
-            R.drawable.image5,
-            R.drawable.image6,
-            R.drawable.image7,
-            R.drawable.image8,
-            R.drawable.image9
-    };
-
-    private ImageView gif;
-
     private MyHandler handler;
     private Timer _timer;
-
     private int _index;
-    private int timeElapsed = 0;
-
     boolean isPlaying = false;
 
     Vibrator vibrator;
 
+    private ImageView gif;
     private Chronometer chronometer;
     private long elapsedTimeBeforePause;
 
@@ -215,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startAnimation(int index) {
+        initializeSettings();
         isPlaying = true;
 
         _timer = new Timer();
@@ -244,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
                 _index = -1;
             }
             _index++;
-            timeElapsed++;
         }
     }
 
