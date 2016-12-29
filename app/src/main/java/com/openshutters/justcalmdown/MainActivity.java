@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //setupUsingGIF(vibrator);
         setupUsingAnimation(vibrator);
     }
 
@@ -121,30 +120,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         prefTimeLimitInSeconds = Integer.valueOf(prfs.getString("pref_time", "60"));
         prefVibrateOnly = prfs.getBoolean("pref_vibrate", false);
-    }
-
-    private void setupUsingGIF(Vibrator vibrator) {
-        /*GifImageButton gif = (GifImageButton) findViewById(R.id.main_gif);
-        final GifDrawable gifDrawable = (GifDrawable) gif.getDrawable();
-
-        final MediaController mediaController = new MediaController(this);
-        mediaController.setMediaPlayer(gifDrawable);
-        mediaController.setAnchorView(gif);
-
-        if(vibrator.hasVibrator()){
-            vibrator.vibrate(vibrationPattern, -1);
-        }
-
-        gif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gifDrawable.isPlaying()){
-                    gifDrawable.pause();
-                } else {
-                    gifDrawable.start();
-                }
-            }
-        });*/
     }
 
     private void setupUsingAnimation(Vibrator vibrator) {
@@ -210,14 +185,6 @@ public class MainActivity extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime() - elapsedTimeBeforePause);
         chronometer.start();
     }
-
-//    private long[] modifyVibrationPatternBasedOnIndex(int index) {
-//        List<Long> copiedList = new ArrayList<>(vibrationPattern);
-//        Collections.rotate(copiedList, 2 * index);
-//        Long[] newPattern = new Long[vibrationPattern.size()];
-//        copiedList.toArray(newPattern);
-//        return ArrayUtils.toPrimitive(newPattern);
-//    }
 
     private class TickClass extends TimerTask {
         @Override
