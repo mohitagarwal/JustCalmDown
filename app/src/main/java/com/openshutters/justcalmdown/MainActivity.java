@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int prefTimeLimitInSeconds;
     private boolean prefVibrateOnly;
+    private String prefTimeLimitDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TextView timeLimitText = (TextView) findViewById(R.id.current_time_limit);
+        timeLimitText.setText("Current time limit is set to " + prefTimeLimitDisplay);
+
         chronometer = (Chronometer) findViewById(R.id.timer);
 
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
@@ -119,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
     private void initializeSettings() {
         SharedPreferences prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         prefTimeLimitInSeconds = Integer.valueOf(prfs.getString(getString(R.string.pref_time), getString(R.string.pref_time_default_value)));
+        String[] choices = getResources().getStringArray(R.array.pref_time_array);
+        String[] choicesKey = getResources().getStringArray(R.array.pref_time_values);
+        int i;
+        for (i = 0; i < choicesKey.length; i++) {
+            if (choicesKey[i].equals(String.valueOf(prefTimeLimitInSeconds))) {
+                break;
+            }
+        }
+        prefTimeLimitDisplay = choices[i];
         prefVibrateOnly = prfs.getBoolean(getString(R.string.pref_vibrate), false);
     }
 
