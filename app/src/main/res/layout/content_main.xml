@@ -15,27 +15,42 @@
 
     <TextView
         android:id="@+id/current_time_limit"
-        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
     <Chronometer
         android:id="@+id/timer"
-        android:layout_below="@id/current_time_limit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/current_time_limit"
         android:gravity="center"
         android:minHeight="56dp"
         android:padding="8dp"
         android:textSize="48dp"
         android:textStyle="bold" />
 
-    <!--<pl.droidsonroids.gif.GifImageButton-->
-    <ImageView
-        android:id="@+id/main_gif"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/timer"
-        android:scaleType="fitCenter"
-        android:src="@drawable/image0" />
+        android:layout_below="@id/timer">
+
+        <!--<pl.droidsonroids.gif.GifImageButton-->
+        <ImageView
+            android:id="@+id/main_gif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/timer"
+            android:scaleType="fitCenter"
+            android:src="@drawable/image0" />
+
+        <ImageView
+            android:id="@+id/image_play"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher" />
+    </FrameLayout>
+
 </RelativeLayout>

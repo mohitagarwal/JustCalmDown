@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
 
     private ImageView gif;
+    private View playControlImage;
     private Chronometer chronometer;
     private long elapsedTimeBeforePause;
 
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         TextView timeLimitText = (TextView) findViewById(R.id.current_time_limit);
         timeLimitText.setText("Current time limit is set to " + prefTimeLimitDisplay);
+
+        playControlImage = findViewById(R.id.image_play);
 
         chronometer = (Chronometer) findViewById(R.id.timer);
 
@@ -169,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
             elapsedTimeBeforePause = SystemClock.elapsedRealtime() - chronometer.getBase();
         }
         isPlaying = false;
+        playControlImage.setVisibility(View.VISIBLE);
     }
 
     private void stopAnimation() {
@@ -184,11 +188,13 @@ public class MainActivity extends AppCompatActivity {
             elapsedTimeBeforePause = SystemClock.elapsedRealtime();
         }
         isPlaying = false;
+        playControlImage.setVisibility(View.VISIBLE);
     }
 
     private void startAnimation(int index) {
         initializeSettings();
         isPlaying = true;
+        playControlImage.setVisibility(View.GONE);
 
         _timer = new Timer();
         _timer.schedule(new TickClass(), DELAY, GAP_BETWEEN_EACH_IMAGE);
