@@ -30,5 +30,7 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     compile 'org.apache.commons:commons-lang3:3.4'
 
+    compile 'com.github.paolorotolo:appintro:4.1.0'
+
     testCompile 'junit:junit:4.12'
 }

@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeSettings() {
         SharedPreferences prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        prefTimeLimitInSeconds = Integer.valueOf(prfs.getString("pref_time", "60"));
-        prefVibrateOnly = prfs.getBoolean("pref_vibrate", false);
+        prefTimeLimitInSeconds = Integer.valueOf(prfs.getString(getString(R.string.pref_time), getString(R.string.pref_time_default_value)));
+        prefVibrateOnly = prfs.getBoolean(getString(R.string.pref_vibrate), false);
     }
 
     private void setupUsingAnimation(Vibrator vibrator) {

@@ -16,4 +16,6 @@
         <item>600</item>
         <item>900</item>
     </string-array>
+
+    <string name="pref_time_default_value">60</string>
 </resources>
