@@ -19,7 +19,7 @@ public class IntroductionActivity extends AppIntro {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        if (!prfs.getBoolean(getString(R.string.pref_intro_seen), false)) {
+//        if (prfs.getBoolean(getString(R.string.pref_intro_seen), false)) {
 //            navigateToMainScreen();
 //        }
 

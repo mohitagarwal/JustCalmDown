@@ -6,12 +6,12 @@
         android:entryValues="@array/pref_time_values"
         android:key="@string/pref_time"
         android:summary="Time for breathing"
-        android:title="Time" />
+        android:title="Time Limit" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="@string/pref_vibrate"
-        android:summary="Turn ON to breathe via vibrations"
-        android:title="Vibrate only" />
+    <!--<SwitchPreference-->
+    <!--android:defaultValue="true"-->
+    <!--android:key="@string/pref_vibrate"-->
+    <!--android:summary="Turn ON to breathe via vibrations"-->
+    <!--android:title="Vibrate only" />-->
 
 </PreferenceScreen>
