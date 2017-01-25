@@ -19,9 +19,9 @@ public class IntroductionActivity extends AppIntro {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        if (prfs.getBoolean(getString(R.string.pref_intro_seen), false)) {
-//            navigateToMainScreen();
-//        }
+        if (prfs.getBoolean(getString(R.string.pref_intro_seen), false)) {
+            navigateToMainScreen();
+        }
 
         addSlide(AppIntroFragment.newInstance("Exhale", "Exhale out through mouth completely,\nyou can feel your stomach going in as you exhale", R.drawable.image0, getResources().getColor(R.color.theme_primary)));
         addSlide(AppIntroFragment.newInstance("Inhale", "Inhale through nose till you feel a continuous vibration,\nfollow the outward arrows", R.drawable.image0, getResources().getColor(R.color.theme_primary)));
