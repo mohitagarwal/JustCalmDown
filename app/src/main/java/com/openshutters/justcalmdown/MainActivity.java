@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
 
     private ImageView gif;
+    private TextView timeLimitText;
     private View playControlImage;
     private Chronometer chronometer;
     private long elapsedTimeBeforePause;
@@ -68,14 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        initializeSettings();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView timeLimitText = (TextView) findViewById(R.id.current_time_limit);
-        timeLimitText.setText("Current time limit is set to " + prefTimeLimitDisplay);
-
+        timeLimitText = (TextView) findViewById(R.id.current_time_limit);
         playControlImage = findViewById(R.id.image_play);
 
         chronometer = (Chronometer) findViewById(R.id.timer);
@@ -91,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupUsingAnimation(vibrator);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeSettings();
+        timeLimitText.setText("Current time limit is set to " + prefTimeLimitDisplay);
     }
 
     @Override

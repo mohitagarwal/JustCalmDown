@@ -17,7 +17,7 @@
         android:gravity="center"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:text="Set a time limit"
+        android:text="Choose a time limit"
         android:textColor="@android:color/white"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -56,7 +56,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.9"
             android:gravity="center"
-            android:text="Deep breathe for the set duration, \nrecommended 10 minutes"
+            android:text="Deep breathe for the set duration, \nrecommended 3 minutes"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 

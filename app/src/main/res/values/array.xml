@@ -17,5 +17,5 @@
         <item>900</item>
     </string-array>
 
-    <string name="pref_time_default_value">600</string>
+    <string name="pref_time_default_value">180</string>
 </resources>
