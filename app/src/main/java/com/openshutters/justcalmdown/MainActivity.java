@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView gif;
     private TextView timeLimitText;
-    private View playControlImage;
+    private View playControlButton;
     private Chronometer chronometer;
     private long elapsedTimeBeforePause;
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         timeLimitText = (TextView) findViewById(R.id.current_time_limit);
-        playControlImage = findViewById(R.id.image_play);
+        playControlButton = findViewById(R.id.button_play);
 
         chronometer = (Chronometer) findViewById(R.id.timer);
 
@@ -154,13 +154,23 @@ public class MainActivity extends AppCompatActivity {
         gif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying) {
-                    resetAnimation();
-                } else {
-                    startAnimation(_index);
-                }
+                playOrPauseAnimation();
             }
         });
+        playControlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playOrPauseAnimation();
+            }
+        });
+    }
+
+    private void playOrPauseAnimation() {
+        if (isPlaying) {
+            resetAnimation();
+        } else {
+            startAnimation(_index);
+        }
     }
 
     private void resetAnimation() {
@@ -176,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             elapsedTimeBeforePause = SystemClock.elapsedRealtime() - chronometer.getBase();
         }
         isPlaying = false;
-        playControlImage.setVisibility(View.VISIBLE);
+        playControlButton.setVisibility(View.VISIBLE);
     }
 
     private void stopAnimation() {
@@ -192,13 +202,13 @@ public class MainActivity extends AppCompatActivity {
             elapsedTimeBeforePause = SystemClock.elapsedRealtime();
         }
         isPlaying = false;
-        playControlImage.setVisibility(View.VISIBLE);
+        playControlButton.setVisibility(View.VISIBLE);
     }
 
     private void startAnimation(int index) {
         initializeSettings();
         isPlaying = true;
-        playControlImage.setVisibility(View.GONE);
+        playControlButton.setVisibility(View.GONE);
 
         _timer = new Timer();
         _timer.schedule(new TickClass(), DELAY, GAP_BETWEEN_EACH_IMAGE);

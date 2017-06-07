@@ -43,14 +43,16 @@
             android:layout_below="@id/timer"
             android:scaleType="fitCenter"
             android:src="@drawable/image0" />
-
-        <ImageView
-            android:id="@+id/image_play"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_play_circle_outline_black_48dp" />
     </FrameLayout>
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        android:text="@string/start" />
 
 </RelativeLayout>
