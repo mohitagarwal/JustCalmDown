@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setupUsingAnimation(vibrator);
+        setupUsingAnimation();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        resetAnimation();
+        pauseAnimation();
     }
 
     @Override
@@ -118,7 +118,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
+        if (id == R.id.action_reset) {
+            stopAnimation();
+            return true;
+        } else if (id == R.id.action_about) {
             startActivity(new Intent(this, AboutActivity.class));
             return true;
         } else if (id == R.id.action_settings) {
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         prefVibrateOnly = prfs.getBoolean(getString(R.string.pref_vibrate), false);
     }
 
-    private void setupUsingAnimation(Vibrator vibrator) {
+    private void setupUsingAnimation() {
         gif = (ImageView) findViewById(R.id.main_gif);
 
         handler = new MyHandler();
@@ -167,13 +170,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void playOrPauseAnimation() {
         if (isPlaying) {
-            resetAnimation();
+            pauseAnimation();
         } else {
-            startAnimation(_index);
+            startAnimation();
         }
     }
 
-    private void resetAnimation() {
+    private void pauseAnimation() {
         if (_timer != null) {
             _timer.cancel();
             _index = 0;
@@ -200,12 +203,13 @@ public class MainActivity extends AppCompatActivity {
         if (chronometer != null) {
             chronometer.stop();
             elapsedTimeBeforePause = SystemClock.elapsedRealtime();
+            chronometer.setBase(elapsedTimeBeforePause);
         }
         isPlaying = false;
         playControlButton.setVisibility(View.VISIBLE);
     }
 
-    private void startAnimation(int index) {
+    private void startAnimation() {
         initializeSettings();
         isPlaying = true;
         playControlButton.setVisibility(View.GONE);

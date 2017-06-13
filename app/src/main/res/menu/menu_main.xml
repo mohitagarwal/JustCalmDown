@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.openshutters.justcalmdown.MainActivity">
     <item
+        android:id="@+id/action_reset"
+        android:title="@string/action_reset"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         app:showAsAction="never" />
