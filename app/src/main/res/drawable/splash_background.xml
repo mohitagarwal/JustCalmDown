@@ -4,6 +4,6 @@
     <item>
         <bitmap
             android:gravity="fill"
-            android:src="@drawable/ic_play_arrow_black_48dp" />
+            android:src="@drawable/splash_screen" />
     </item>
 </layer-list>

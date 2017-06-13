@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private long elapsedTimeBeforePause;
 
     private int prefTimeLimitInSeconds;
-    private boolean prefVibrateOnly;
     private String prefTimeLimitDisplay;
 
     @Override
@@ -144,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         prefTimeLimitDisplay = choices[i];
-        prefVibrateOnly = prfs.getBoolean(getString(R.string.pref_vibrate), false);
     }
 
     private void setupUsingAnimation() {
@@ -195,15 +193,15 @@ public class MainActivity extends AppCompatActivity {
     private void stopAnimation() {
         if (_timer != null) {
             _timer.cancel();
-            _index = 0;
         }
+        _index = 0;
         if (vibrator != null) {
             vibrator.cancel();
         }
         if (chronometer != null) {
             chronometer.stop();
-            elapsedTimeBeforePause = SystemClock.elapsedRealtime();
-            chronometer.setBase(elapsedTimeBeforePause);
+            elapsedTimeBeforePause = 0;
+            chronometer.setBase(SystemClock.elapsedRealtime());
         }
         isPlaying = false;
         playControlButton.setVisibility(View.VISIBLE);

@@ -2,5 +2,4 @@
 <resources>
     <string name="pref_intro_seen">pref_intro_seen</string>
     <string name="pref_time">pref_time</string>
-    <string name="pref_vibrate">pref_vibrate</string>
 </resources>
