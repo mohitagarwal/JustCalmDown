@@ -18,6 +18,7 @@ public class IntroductionActivity extends AppIntro {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_in_up, android.R.anim.fade_out);
         prfs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         if (prfs.getBoolean(getString(R.string.pref_intro_seen), false)) {
             navigateToMainScreen();
