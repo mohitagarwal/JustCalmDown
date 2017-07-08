@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         overridePendingTransition(R.anim.slide_in_up, android.R.anim.fade_out);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
