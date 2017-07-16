@@ -23,18 +23,5 @@ public class AboutActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        WebView webview = (WebView) findViewById(R.id.about_webview);
-        setupWebView(webview);
-    }
-
-    private void setupWebView(WebView webview) {
-        WebSettings settings = webview.getSettings();
-        settings.setJavaScriptEnabled(true);
-
-        ProgressDialog progressBar = ProgressDialog.show(this, null, "Loading...");
-        webview.setWebViewClient(new LoadingWebViewClient(progressBar));
-
-        webview.loadUrl("http://www.mindpub.com/art549.htm");
     }
 }

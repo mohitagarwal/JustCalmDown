@@ -24,10 +24,10 @@ public class IntroductionActivity extends AppIntro {
             navigateToMainScreen();
         }
 
-        addSlide(AppIntroFragment.newInstance("Exhale", "Exhale out through mouth completely,\nyou can feel your stomach going in as you exhale", R.drawable.image0, getResources().getColor(R.color.theme_primary)));
-        addSlide(AppIntroFragment.newInstance("Inhale", "Inhale through nose till you feel a continuous vibration,\nfollow the outward arrows", R.drawable.image0, getResources().getColor(R.color.theme_primary)));
-        addSlide(AppIntroFragment.newInstance("Hold your breath", "When the vibration stops, hold you breath till you feel the vibrations again, and start to exhale thereafter", R.drawable.image0, getResources().getColor(R.color.theme_primary)));
-        addSlide(AppIntroFragment.newInstance("Exhale slowly", "Exhale out slowly through nose,\nfeel your stomach going inside,\nfollow the arrows and the jerky vibrations to exhale out", R.drawable.image0, getResources().getColor(R.color.theme_primary)));
+        addSlide(AppIntroFragment.newInstance("Exhale", "Exhale out through mouth completely,\nyou can feel your stomach going in as you exhale", R.drawable.image9, getResources().getColor(R.color.theme_primary)));
+        addSlide(AppIntroFragment.newInstance("Inhale", "Inhale through nose till you feel a continuous vibration,\nfollow the outward arrows", R.drawable.image2, getResources().getColor(R.color.theme_primary)));
+        addSlide(AppIntroFragment.newInstance("Hold your breath", "When the vibration stops, hold you breath till you feel the vibrations again, and start to exhale thereafter", R.drawable.image5, getResources().getColor(R.color.theme_primary)));
+        addSlide(AppIntroFragment.newInstance("Exhale slowly", "Exhale out slowly through nose,\nfeel your stomach going inside,\nfollow the arrows and the jerky vibrations to exhale out", R.drawable.image9, getResources().getColor(R.color.theme_primary)));
         addSlide(SetTimeLimitFragment.newInstance());
 
         showSkipButton(false);
